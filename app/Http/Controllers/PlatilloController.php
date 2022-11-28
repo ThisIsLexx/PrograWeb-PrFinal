@@ -46,7 +46,7 @@ class PlatilloController extends Controller
             'nombre_platillo' => 'required|max:255|min:3',
             'tipo_platillo' => 'required|in:camarones,cocteles,filetes|not_in:0',
             'tam_platillo' => 'required|in:chico,mediano,grande|not_in:0',
-            'precio_platillo' => 'required|numeric|min:3',
+            'precio_platillo' => 'required|numeric|min:1',
             'info_platillo' => 'required|max:255|min:3',
         ]);
         
@@ -66,6 +66,7 @@ class PlatilloController extends Controller
     public function show(Platillo $platillo)
     {
         //
+        return view('platillo.platillo-show', compact('platillo'));
     }
 
     /**
@@ -77,6 +78,7 @@ class PlatilloController extends Controller
     public function edit(Platillo $platillo)
     {
         //
+        return view("platillo.platillo-edit", compact('platillo'));
     }
 
     /**
@@ -89,6 +91,23 @@ class PlatilloController extends Controller
     public function update(Request $request, Platillo $platillo)
     {
         //
+        $request->validate([
+            'nombre_platillo' => 'required|max:255|min:3',
+            'tipo_platillo' => 'required|in:camarones,cocteles,filetes',
+            'tam_platillo' => 'required|in:chico,mediano,grande|not_in:0',
+            'precio_platillo' => 'required|numeric|min:1',
+            'info_platillo' => 'required|max:255|min:3',
+
+        ]);
+
+        $platillo->nombre_platillo = $request->nombre_platillo;
+        $platillo->tipo_platillo = $request->tipo_platillo;
+        $platillo->tam_platillo = $request->tam_platillo;
+        $platillo->precio_platillo = $request->precio_platillo;
+        $platillo->info_platillo = $request->info_platillo;
+
+        $platillo->save();
+        return redirect("/platillo");
     }
 
     /**
@@ -100,5 +119,7 @@ class PlatilloController extends Controller
     public function destroy(Platillo $platillo)
     {
         //
+        $platillo->destroy($platillo->id);
+        return redirect('platillo')->with('success', 'Platillo eliminado correctamente!');
     }
 }

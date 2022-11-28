@@ -89,6 +89,12 @@ class CatalogoController extends Controller
      */
     public function update(Request $request, Catalogo $catalogo)
     {
+        $request->validate([
+            'tipo' => 'required|in:camarones,filetes,cocteles|not_in:0',
+            'tam' => 'required|in:chico,mediano,grande|not_in:0',
+            'precio' => 'required',
+        ]);
+
         // Se toma el request enviado desde la vista catalogo-Edit para procesarlo dentro de la BD.
         $catalogo->tipo = $request->tipo;
         $catalogo->tam = $request->tam;

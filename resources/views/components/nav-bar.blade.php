@@ -4,6 +4,6 @@
         <a href="/catalogo">Catalogo</a>
         <a href="/platillo">Platillos</a>
         <a href="#">Menu</a>
-        <a href="#">Hacer reservación</a>
+        <a href="#">Hacer pedido</a>
     </div>
 </div>

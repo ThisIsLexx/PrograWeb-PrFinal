@@ -1,11 +1,12 @@
 <x-main-template titulo="Platillo Index">
 
+<h1>REGISTRO DE PLATILLOS - MARISCOS CHEOS</h1>
 
-<a href="/platillo/create">Agregar nuevo platillo</a>
-
-
-
-<h1>INDEX PLATILLOS</h1>
+    @if(session('success'))
+        <div>
+            {{ session('success') }}
+        </div>
+    @endif
 
     <table>
         <thead>
@@ -23,7 +24,7 @@
             @if(!empty($platillos))
                 @foreach($platillos as $platillo)
                     <tr>
-                        <td>{{ $platillo->nombre_platillo }}</td>
+                        <td><a href="/platillo/{{ $platillo->id }}">{{ $platillo->nombre_platillo }}</a></td>
                         <td>{{ $platillo->tipo_platillo }}</td>
                         <td>{{ $platillo->tam_platillo }}</td>
                         <td>{{ $platillo->precio_platillo }}</td>
