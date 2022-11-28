@@ -29,12 +29,6 @@ class CatalogoSeeder extends Seeder
         ]);
 
         Catalogo::create([
-            'tipo' => 'aguachiles',
-            'tam' => 'grande',
-            'precio' => '145',
-        ]);
-
-        Catalogo::create([
             'tipo' => 'filetes',
             'tam' => 'chico',
             'precio' => '75',

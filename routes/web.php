@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogoController;
+use App\Http\Controllers\PlatilloController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,7 +19,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('catalogo', CatalogoController::class);
+Route::resource('catalogo', CatalogoController::class)->middleware('auth');
+
+Route::resource('platillo', PlatilloController::class)->middleware('auth');
+
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
