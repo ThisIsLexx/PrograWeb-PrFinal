@@ -4,6 +4,12 @@
 
 <h3>Propietario del pedido: {{ $order->user->name }}</h3>
 
+<h3>Datos de envio</h3>
+
+<h4>Domicilio: {{ $order->direccion_orden }}</h4>
+<h4>Codigo postal: {{ $order->codigoP_orden }}</h4>
+
+
 <h3>Cantidad de productos: {{ $order->cantidad_orden }}</h3>
 
 <h3>Productos en pedido</h3>

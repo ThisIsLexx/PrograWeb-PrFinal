@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('nombre_orden');
+            $table->string('direccion_orden');
+            $table->string('codigoP_orden');
             $table->foreignId('user_id');
             $table->date('fecha_orden');
             $table->string('comentario_orden');

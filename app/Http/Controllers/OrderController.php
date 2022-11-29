@@ -46,6 +46,8 @@ class OrderController extends Controller
         $request->validate([
             'nombre_orden' => 'required|min:3|max:255',
             'fecha_orden' => 'required|date|after_or_equal:today',
+            'direccion_orden' => 'required|min:3|max:255',
+            'codigoP_orden' => 'required|min:5|max:5',
             'comentario_orden' => 'required|max:255|min:3',
         ]);
 

@@ -14,6 +14,8 @@ class Order extends Model
     protected $fillable = [
         'timestamps',
         'nombre_orden',
+        'direccion_orden',
+        'codigoP_orden',
         'user_id',
         'fecha_orden',
         'comentario_orden',

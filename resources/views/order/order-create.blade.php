@@ -12,7 +12,23 @@
     @enderror
 
     <label for="nombre_orden">Nombre de la orden:</label><br>
-    <input required type="text" name="nombre_orden" id="nombre_orden">
+    <input required type="text" name="nombre_orden" id="nombre_orden"><br>
+    @error('nombre_orden')
+        <p>{{ $message }}</p>
+    @enderror
+
+    <label for="direccion_orden">Dirección de envio:</label><br>
+    <input required type="text" name="direccion_orden" id="direccion_orden"><br>
+    @error('direccion_orden')
+        <p>{{ $message }}</p>
+    @enderror
+
+    <label for="codigoP_orden">Codigo Postal (5 digitos):</label><br>
+    <input required type="text" name="codigoP_orden" id="codigoP_orden"><br>
+    @error('codigoP_orden')
+        <p>{{ $message }}</p>
+    @enderror
+
 
     <h3>Seleccionar productos:</h3>
     
