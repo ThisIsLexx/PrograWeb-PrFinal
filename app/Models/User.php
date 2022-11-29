@@ -10,6 +10,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Platillo;
+use App\Models\Order;
 
 class User extends Authenticatable
 {
@@ -62,5 +63,9 @@ class User extends Authenticatable
 
     public function platillos(){
         return $this->hasMany(Platillo::class);
+    }
+
+    public function orders(){
+        return $this->hasMany(Order::class);
     }
 }

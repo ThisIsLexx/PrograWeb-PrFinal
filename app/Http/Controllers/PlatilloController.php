@@ -29,9 +29,8 @@ class PlatilloController extends Controller
      */
     public function create()
     {
-        $catalogo = Catalogo::all();
 
-        return view('platillo.platillo-create', compact('catalogo'));
+        return view('platillo.platillo-create');
     }
 
     /**
@@ -53,7 +52,7 @@ class PlatilloController extends Controller
         $request->merge(['user_id' => Auth::id()]);
         Platillo::create($request->all());
         
-        return redirect("/platillo");
+        return redirect("/platillo")->with('success','Platillo agregado correctamente!');
 
     }
 
@@ -107,7 +106,7 @@ class PlatilloController extends Controller
         $platillo->info_platillo = $request->info_platillo;
 
         $platillo->save();
-        return redirect("/platillo");
+        return redirect("/platillo")->with('success','Datos del platillo editados correctamente!');
     }
 
     /**

@@ -17,7 +17,7 @@
                 <th>Precio del platillo</th>
                 <th>Encargado del registro</th>
                 <th>Acciones</th>
-                <th><a href="/catalogo/create">Agregar</a></th>
+                <th><a href="/platillo/create">Agregar</a></th>
             </tr>
         </thead>
         <tbody>

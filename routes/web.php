@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\PlatilloController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,8 @@ Route::get('/', function () {
 Route::resource('catalogo', CatalogoController::class)->middleware('auth');
 
 Route::resource('platillo', PlatilloController::class)->middleware('auth');
+
+Route::resource('order', OrderController::class);
 
 
 Route::middleware([

@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use Illuminate\Http\Request;
+use App\Models\Platillo;
+use illuminate\Support\Facades\Auth;
+
 
 class OrderController extends Controller
 {
@@ -15,6 +18,8 @@ class OrderController extends Controller
     public function index()
     {
         //
+        $orders = Order::all();
+        return view('order.order-index', compact('orders'));
     }
 
     /**
@@ -25,6 +30,8 @@ class OrderController extends Controller
     public function create()
     {
         //
+        $platillos = Platillo::all();
+        return view('order.order-create', compact('platillos'));
     }
 
     /**
@@ -36,6 +43,25 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'nombre_orden' => 'required|min:3|max:255',
+            'fecha_orden' => 'required|date|after_or_equal:today',
+            'comentario_orden' => 'required|max:255|min:3',
+        ]);
+
+        $request->merge(['user_id' => Auth::id()]);
+        $request->merge(['cantidad_orden' => sizeof($request->platillos_id)]);
+        $request->merge(['total_orden' => 0]);
+
+        $order = Order::create($request->all());
+        
+
+        $order->platillos()->attach($request->platillos_id);
+
+        $order->total_orden = $order->getPrecioTotal();
+        $order->save();    
+
+        return redirect('/order')->with('success','Orden creada con exito!');
     }
 
     /**
@@ -47,6 +73,7 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         //
+        return view('order.order-show', compact('order'));
     }
 
     /**
@@ -58,6 +85,7 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         //
+        return view('order.order-edit', compact('order'));
     }
 
     /**
@@ -70,6 +98,14 @@ class OrderController extends Controller
     public function update(Request $request, Order $order)
     {
         //
+        $request->validate([
+
+
+        ]);
+
+        // $order-> = $request->;
+        // $order->save();
+        return redirect('/order')->with('success', 'Datos editados correctamente');
     }
 
     /**
@@ -81,5 +117,7 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+        $order->destroy($order->id);
+        return redirect('/order')->with('success','Orden eliminada con exito!');
     }
 }

@@ -16,6 +16,12 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('nombre_orden');
+            $table->foreignId('user_id');
+            $table->date('fecha_orden');
+            $table->string('comentario_orden');
+            $table->integer('cantidad_orden');
+            $table->float('total_orden');
         });
     }
 
