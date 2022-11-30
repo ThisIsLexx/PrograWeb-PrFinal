@@ -1,6 +1,6 @@
 <x-main-template titulo="Platillo Index">
 
-<h1>REGISTRO DE PLATILLOS - MARISCOS CHEOS</h1>
+<h1 class="Titulo">REGISTRO DE PLATILLOS - MARISCOS CHEOS</h1>
 
     @if(session('success'))
         <div>

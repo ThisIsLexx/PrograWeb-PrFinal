@@ -1,6 +1,7 @@
 <x-main-template titulo="Crear platillo">
 
-<div>
+<div class="container">
+    <h2>Crear un nuevo platillo</h2>
     <form action="/platillo" method="POST">
         @csrf
     
