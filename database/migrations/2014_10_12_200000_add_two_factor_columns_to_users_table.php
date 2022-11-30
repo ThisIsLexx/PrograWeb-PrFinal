@@ -28,6 +28,7 @@ return new class extends Migration
                         ->after('two_factor_recovery_codes')
                         ->nullable();
             }
+            $table->string('rol')->default('user');
         });
     }
 

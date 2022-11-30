@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Platillo;
 use illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Gate;
 
 class OrderController extends Controller
 {
@@ -18,6 +19,10 @@ class OrderController extends Controller
     public function index()
     {
         //
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
+
         $orders = Order::all();
         return view('order.order-index', compact('orders'));
     }
@@ -30,6 +35,10 @@ class OrderController extends Controller
     public function create()
     {
         //
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
+
         $platillos = Platillo::all();
         return view('order.order-create', compact('platillos'));
     }
@@ -75,6 +84,10 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         //
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
+
         return view('order.order-show', compact('order'));
     }
 
@@ -87,7 +100,12 @@ class OrderController extends Controller
     public function edit(Order $order)
     {
         //
-        return view('order.order-edit', compact('order'));
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
+
+        $platillos = Platillo::all();
+        return view('order.order-edit', compact('order', 'platillos'));
     }
 
     /**
@@ -101,12 +119,26 @@ class OrderController extends Controller
     {
         //
         $request->validate([
-
-
+            'nombre_orden' => 'required|min:3|max:255',
+            'fecha_orden' => 'required|date|after_or_equal:today',
+            'direccion_orden' => 'required|min:3|max:255',
+            'codigoP_orden' => 'required|min:5|max:5',
+            'comentario_orden' => 'required|max:255|min:3',
         ]);
 
         // $order-> = $request->;
         // $order->save();
+
+        $request->merge(['cantidad_orden' => sizeof($request->platillos_id)]);
+        $request->merge(['total_orden' => 0]);
+
+        Order::where('id', $order->id )->update($request->except('_token', '_method','platillos_id'));
+
+        $order->platillos()->sync($request->platillos_id);
+
+        $order->total_orden = $order->getPrecioTotal();
+        $order->save();
+
         return redirect('/order')->with('success', 'Datos editados correctamente');
     }
 
@@ -119,6 +151,10 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
+
         $order->destroy($order->id);
         return redirect('/order')->with('success','Orden eliminada con exito!');
     }
