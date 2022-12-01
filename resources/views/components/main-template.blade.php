@@ -13,13 +13,17 @@
 
     <div class="wrapper">
         <div class="navbar">
+            <!-- <img src="#" alt="" width=""> -->
+            <p>LOGOTIPO</p>
+
             @can('navBar')
                 <a class="navigation" href="/catalogo">Catalogo</a>
                 <a href="/platillo">Platillos</a>
                 <a href="/order">Pedidos</a>
             @endcan
-            <a href="#">Menu</a>
-            <a href="#">Hacer pedido</a>
+            <a href="/menu">Menu</a>
+            <a href="/order/create">Hacer pedido</a>
+            <a href="/misPedidos">Mis pedidos</a>
         </div>
     </div>
 

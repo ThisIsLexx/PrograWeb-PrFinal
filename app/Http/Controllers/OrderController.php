@@ -35,10 +35,6 @@ class OrderController extends Controller
     public function create()
     {
         //
-        if (! Gate::allows('gestionar-datos')){
-            abort(403, 'Que haces aqui??? No eres un administrador!');
-        }
-
         $platillos = Platillo::all();
         return view('order.order-create', compact('platillos'));
     }
@@ -157,5 +153,11 @@ class OrderController extends Controller
 
         $order->destroy($order->id);
         return redirect('/order')->with('success','Orden eliminada con exito!');
+    }
+
+    public function misPedidos(){
+        $orders = Order::all();
+
+        return view('order.order-misPedidos', compact('orders'));
     }
 }

@@ -11,7 +11,7 @@
     <table>
         <thead>
             <tr>
-                <th>Nombre del precio_platillo</th>
+                <th>Nombre del platillo</th>
                 <th>Tipo de platillo</th>
                 <th>Tamaño de platillo</th>
                 <th>Precio del platillo</th>

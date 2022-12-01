@@ -125,6 +125,12 @@ class PlatilloController extends Controller
         return redirect('platillo')->with('success', 'Platillo eliminado correctamente!');
     }
 
+    public function menu(Platillo $platillo){
+
+        $platillos = Platillo::with('archivos');
+
+        return view('platillo.platillo-menu', compact('platillos'));
+    }
 
     public function guardarArchivo(Request $request, $platillo_id){
 
@@ -155,11 +161,13 @@ class PlatilloController extends Controller
             Storage::delete($platillo->imagen);
             Archivo::where('platillo_id', $platillo_id)->delete();
             
+            $ubicacion = $request->nuevoArchivo->store('public');
+
             $archivo = new Archivo();
             $archivo->platillo_id = $platillo_id;
             $archivo->ubicacion = $ubicacion;
-            $archivo->nombre_original = $request->archivo->getClientOriginalName();
-            $archivo->mime = $request->archivo->getClientMimeType();
+            $archivo->nombre_original = $request->nuevoArchivo->getClientOriginalName();
+            $archivo->mime = $request->nuevoArchivo->getClientMimeType();
             $archivo->save();
 
             $platillo->imagen = $ubicacion;

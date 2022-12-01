@@ -30,6 +30,8 @@ Route::post('/guardarArchivo/{platillo_id}', [PlatilloController::class, 'guarda
 Route::post('/editarArchivo/{platillo_id}', [PlatilloController::class, 'editarArchivo'])->name('editar');
 Route::post('/eliminarArchivo/{platillo_id}', [PlatilloController::class, 'eliminarArchivo'])->name('eliminar');
 
+Route::get('/menu', [PlatilloController::class, 'menu'])->name('menu');
+Route::get('/misPedidos', [OrderController::class, 'misPedidos'])->name('ordenes');
 
 Route::middleware([
     'auth:sanctum',
