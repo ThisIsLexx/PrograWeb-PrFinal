@@ -151,9 +151,21 @@ class PlatilloController extends Controller
         $platillo = Platillo::find($platillo_id);
 
         if($request->file('nuevoArchivo')->isValid()){
-            Storage::delete();
             
+            Storage::delete($platillo->imagen);
+            Archivo::where('platillo_id', $platillo_id)->delete();
+            
+            $archivo = new Archivo();
+            $archivo->platillo_id = $platillo_id;
+            $archivo->ubicacion = $ubicacion;
+            $archivo->nombre_original = $request->archivo->getClientOriginalName();
+            $archivo->mime = $request->archivo->getClientMimeType();
+            $archivo->save();
 
+            $platillo->imagen = $ubicacion;
+            $platillo->save();
+            
+            return redirect('platillo')->with('success','Imagen editada correctamente!');
         }
 
     }
