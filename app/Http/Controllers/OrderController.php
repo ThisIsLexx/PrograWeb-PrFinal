@@ -80,9 +80,6 @@ class OrderController extends Controller
     public function show(Order $order)
     {
         //
-        if (! Gate::allows('gestionar-datos')){
-            abort(403, 'Que haces aqui??? No eres un administrador!');
-        }
 
         return view('order.order-show', compact('order'));
     }

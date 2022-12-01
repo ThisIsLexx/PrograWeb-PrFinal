@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
+use Illuminate\Support\Facades\Gate;
 
 class PlatilloController extends Controller
 {
@@ -20,6 +21,9 @@ class PlatilloController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
         $platillos = Platillo::all();
 
         return view('platillo.platillo-index', compact('platillos'));
@@ -32,7 +36,9 @@ class PlatilloController extends Controller
      */
     public function create()
     {
-
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
         return view('platillo.platillo-create');
     }
 
@@ -68,6 +74,9 @@ class PlatilloController extends Controller
     public function show(Platillo $platillo)
     {
         //
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
         return view('platillo.platillo-show', compact('platillo'));
     }
 
@@ -80,6 +89,9 @@ class PlatilloController extends Controller
     public function edit(Platillo $platillo)
     {
         //
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
         return view("platillo.platillo-edit", compact('platillo'));
     }
 

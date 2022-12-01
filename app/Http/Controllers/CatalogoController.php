@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Catalogo;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Gate;
+
 class CatalogoController extends Controller
 {
     /**
@@ -14,6 +16,9 @@ class CatalogoController extends Controller
      */
     public function index()
     {
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
         // Se retornan todos los registros existentes dentro de la tabla catalogo
         $catalogo = Catalogo::all();
 
@@ -27,6 +32,9 @@ class CatalogoController extends Controller
      */
     public function create()
     {
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
         // Se redirecciona a la vista Create de la clase catalogo
         return view('catalogo/catalogo-create');
     }
@@ -63,9 +71,9 @@ class CatalogoController extends Controller
      */
     public function show(Catalogo $catalogo)
     {
-        // Se retorna a una nueva vista con la información particular del catalogo creado, se envia por medio de compact los datos del mismo.
-
-        // return view('catalogo.catalogo-Show', compact('catalogo'));
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
     }
 
     /**
@@ -76,6 +84,9 @@ class CatalogoController extends Controller
      */
     public function edit(Catalogo $catalogo)
     {
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
         // Se retorna a la vista de edición, junto con la información contenida en el registro, para poder editar los campos del formulario.
         return view('catalogo.catalogo-edit', compact('catalogo'));
     }
@@ -113,6 +124,9 @@ class CatalogoController extends Controller
      */
     public function destroy(Catalogo $catalogo)
     {
+        if (! Gate::allows('gestionar-datos')){
+            abort(403, 'Que haces aqui??? No eres un administrador!');
+        }
         // Recibimos por medio de un formulario con metodo POST y DELETE, un objeto de la clase catalogo para ser eliminado.
         $catalogo->destroy($catalogo->id);
         // Redireccionamos a la vista principal.
