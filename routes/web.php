@@ -26,6 +26,10 @@ Route::resource('platillo', PlatilloController::class)->middleware('auth');
 
 Route::resource('order', OrderController::class);
 
+Route::post('/guardarArchivo/{platillo_id}', [PlatilloController::class, 'guardarArchivo'])->name('guardar');
+Route::post('/editarArchivo/{platillo_id}', [PlatilloController::class, 'editarArchivo'])->name('editar');
+Route::post('/eliminarArchivo/{platillo_id}', [PlatilloController::class, 'eliminarArchivo'])->name('eliminar');
+
 
 Route::middleware([
     'auth:sanctum',

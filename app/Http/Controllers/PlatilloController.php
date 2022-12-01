@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Platillo;
 use App\Models\Catalogo;
+use App\Models\Archivo;
+
 use Illuminate\Http\Request;
 use illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class PlatilloController extends Controller
@@ -121,4 +124,51 @@ class PlatilloController extends Controller
         $platillo->destroy($platillo->id);
         return redirect('platillo')->with('success', 'Platillo eliminado correctamente!');
     }
+
+
+    public function guardarArchivo(Request $request, $platillo_id){
+
+        if($request->file('archivo')->isValid()){
+            $ubicacion = $request->archivo->store('public');
+
+            $archivo = new Archivo();
+            $archivo->platillo_id = $platillo_id;
+            $archivo->ubicacion = $ubicacion;
+            $archivo->nombre_original = $request->archivo->getClientOriginalName();
+            $archivo->mime = $request->archivo->getClientMimeType();
+            $archivo->save();
+
+            $platillo = Platillo::find($platillo_id);
+            $platillo->imagen = $ubicacion;
+            $platillo->save();
+
+            return redirect('platillo')->with('success','Imagen guardada correctamente!');
+        }
+    }
+
+    public function editarArchivo(Request $request, $platillo_id){
+        
+        $platillo = Platillo::find($platillo_id);
+
+        if($request->file('nuevoArchivo')->isValid()){
+            Storage::delete();
+            
+
+        }
+
+    }
+
+    public function eliminarArchivo(Request $request, $platillo_id){
+        
+        $platillo = Platillo::find($platillo_id);
+
+        Storage::delete($platillo->imagen);
+        Archivo::where('platillo_id', $platillo_id)->delete();
+
+        $platillo->imagen = null;
+        $platillo->save();
+
+        return redirect('platillo')->with('success','Imagen eliminada correctamente!');
+    }
+
 }

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\Order;
-
+use App\Models\Archivo;
 
 
 class Platillo extends Model
@@ -24,6 +24,7 @@ class Platillo extends Model
         'tam_platillo',
         'precio_platillo',
         'info_platillo',
+        'imagen',
     ];
 
     // Variables que no queremos se modifiquen.
@@ -38,5 +39,9 @@ class Platillo extends Model
 
     public function orders(){
         return $this->belongsToMany(Order::class);
+    }
+
+    public function archivos(){
+        return $this->hasMany(Archivo::class);
     }
 }

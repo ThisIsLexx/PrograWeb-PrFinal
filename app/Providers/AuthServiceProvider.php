@@ -44,7 +44,6 @@ class AuthServiceProvider extends ServiceProvider
             // Aquí puede existir otro funcionamiento lógico.	
         Return $user->rol === 'admin';
         });
-        
         //
     }
 }
