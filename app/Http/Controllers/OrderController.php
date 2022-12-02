@@ -54,6 +54,7 @@ class OrderController extends Controller
             'direccion_orden' => 'required|min:3|max:255',
             'codigoP_orden' => 'required|min:5|max:5',
             'comentario_orden' => 'required|max:255|min:3',
+            'platillos_id' => 'required',
         ]);
 
         $request->merge(['user_id' => Auth::id()]);
@@ -67,8 +68,16 @@ class OrderController extends Controller
 
         $order->total_orden = $order->getPrecioTotal();
         $order->save();    
+        
+        $user = Auth::user();
 
-        return redirect('/order')->with('success','Orden creada con exito!');
+        if($user->rol == "user"){
+            return redirect('/menu');
+        }
+        else{
+            return redirect('/order')->with('success','Orden creada con exito!');
+        }
+
     }
 
     /**
@@ -117,6 +126,7 @@ class OrderController extends Controller
             'direccion_orden' => 'required|min:3|max:255',
             'codigoP_orden' => 'required|min:5|max:5',
             'comentario_orden' => 'required|max:255|min:3',
+            'platillos_id' => 'required',
         ]);
 
         // $order-> = $request->;

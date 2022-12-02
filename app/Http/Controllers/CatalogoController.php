@@ -51,7 +51,7 @@ class CatalogoController extends Controller
         $request->validate([
             'tipo' => 'required|in:camarones,filetes,cocteles|not_in:0',
             'tam' => 'required|in:chico,mediano,grande|not_in:0',
-            'precio' => 'required',
+            'precio' => 'required|max:10|min:1|gt:0',
         ]);
 
         // Se llama al metodo create del modelo Catalogo
@@ -60,7 +60,7 @@ class CatalogoController extends Controller
 
         // Redireccionamos a la vista principal.
 
-        return redirect('catalogo');
+        return redirect('catalogo')->with('success','Producto agregado con exito!');
     }
 
     /**
@@ -103,7 +103,7 @@ class CatalogoController extends Controller
         $request->validate([
             'tipo' => 'required|in:camarones,filetes,cocteles|not_in:0',
             'tam' => 'required|in:chico,mediano,grande|not_in:0',
-            'precio' => 'required',
+            'precio' => 'required|max:10|min:1|gt:0',
         ]);
 
         // Se toma el request enviado desde la vista catalogo-Edit para procesarlo dentro de la BD.
@@ -113,7 +113,7 @@ class CatalogoController extends Controller
         $catalogo->save();
 
         // redireccionamos a la vista principal.
-        return redirect('catalogo');
+        return redirect('catalogo')->with('success','Producto editado con exito!');
     }
 
     /**
@@ -130,6 +130,6 @@ class CatalogoController extends Controller
         // Recibimos por medio de un formulario con metodo POST y DELETE, un objeto de la clase catalogo para ser eliminado.
         $catalogo->destroy($catalogo->id);
         // Redireccionamos a la vista principal.
-        return redirect('catalogo');
+        return redirect('catalogo')->with('success','Producto eliminado con exito!');
     }
 }

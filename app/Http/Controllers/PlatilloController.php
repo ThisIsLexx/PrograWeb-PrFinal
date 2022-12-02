@@ -137,9 +137,9 @@ class PlatilloController extends Controller
         return redirect('platillo')->with('success', 'Platillo eliminado correctamente!');
     }
 
-    public function menu(Platillo $platillo){
+    public function menu(){
 
-        $platillos = Platillo::with('archivos');
+        $platillos = Platillo::all();
 
         return view('platillo.platillo-menu', compact('platillos'));
     }

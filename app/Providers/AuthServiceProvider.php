@@ -13,6 +13,8 @@ use App\Models\Catalogo;
 use Illuminate\Support\Facades\Gate;
 
 use Illuminate\Auth\Access\Response;
+use Illuminate\Support\Facades\Auth;
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -44,6 +46,12 @@ class AuthServiceProvider extends ServiceProvider
             // Aquí puede existir otro funcionamiento lógico.	
         Return $user->rol === 'admin';
         });
+
+        Gate::define("loggedIn", function (User $user){
+            // Aquí puede existir otro funcionamiento lógico.	
+            Return Auth::check();
+        });
+
         //
     }
 }
