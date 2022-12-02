@@ -5,6 +5,7 @@ use App\Http\Controllers\CatalogoController;
 use App\Http\Controllers\PlatilloController;
 use App\Http\Controllers\OrderController;
 
+use App\Models\Platillo;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,9 +17,7 @@ use App\Http\Controllers\OrderController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [PlatilloController::class, 'menu'])->name('welcome');
 
 Route::resource('catalogo', CatalogoController::class)->middleware('auth');
 
@@ -38,7 +37,5 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified'
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [PlatilloController::class, 'menu'])->name('menu');
 });

@@ -43,16 +43,23 @@
                         <a href="/misPedidos" class="nav-link text-light">Mis pedidos</a>
                     </li>
                     <li class="nav-item p-2">
-                        <a href="" class="nav-link text-light">Logout</a>    
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <input class="btn btn-link nav-link text-light" type="submit" value="Cerrar Sesión">
+                        </form>    
                     </li>
                 @endcan
                 
                 @cannot('loggedIn')
                     <li class="nav-item p-2">
-                        <a href="" class="nav-link text-light">Login</a>
+                        <a href="{{ route('login') }}" class="nav-link text-light">Iniciar Sesión</a>
+                    </li>
+                    <li class="nav-item p-2">
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="nav-link text-light">Regístrate</a>
+                        @endif
                     </li>
                 @endcan
-
             </ul>
         </nav>
     </div>
