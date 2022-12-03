@@ -32,6 +32,13 @@ class UserSeeder extends Seeder
             'password' => Hash::make('password'),
             'rol' => 'admin',
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'Jose',
+            'email' => 'jose@test.com',
+            'password' => Hash::make('password'),
+            'rol' => 'user',
+        ]);
     }
     
 }
