@@ -163,7 +163,8 @@ class OrderController extends Controller
     }
 
     public function misPedidos(){
-        $orders = Order::all();
+        $user_id = Auth::id();
+        $orders = Order::where('user_id', '=', $user_id)->get();
 
         return view('order.order-misPedidos', compact('orders'));
     }

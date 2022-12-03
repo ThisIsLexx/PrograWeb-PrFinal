@@ -57,7 +57,12 @@
                 <input class="btn btn-primary"type="submit" value="Realizar pedido">
             </div>
         </form>
-        <a href="/order" class="btn btn-secondary">Salir</a>
+        @if(@Auth::user()->rol == "admin")
+            <a href="/order" class="btn btn-secondary">Salir</a>
+        @else
+            <a href="/misPedidos" class="btn btn-secondary">Salir</a>
+        @endif  
+        <hr>
     </div>
 
 
