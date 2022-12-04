@@ -24,7 +24,7 @@ class PlatilloController extends Controller
         if (! Gate::allows('gestionar-datos')){
             abort(403, 'Que haces aqui??? No eres un administrador!');
         }
-        $platillos = Platillo::all();
+        $platillos = Platillo::with('user')->get();
 
         return view('platillo.platillo-index', compact('platillos'));
     }
